@@ -1,2 +1,2 @@
 # CodeSignInspector
-CodeSignInspector
+Code Sign Inspector application
