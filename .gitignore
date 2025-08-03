@@ -414,3 +414,8 @@ yarn-error.log*
 *.rpm
 *.AppImage
 *.exe
+
+# Temporary files and process IDs
+tmp/
+*.pid
+*.log

@@ -1,0 +1,44 @@
+{
+  "name": "codesign-inspector",
+  "version": "1.0.0",
+  "description": "CodeSign Inspector - Cross-Platform Code Signing Validation & Reporting Tool",
+  "private": true,
+  "scripts": {
+    "start": "./scripts/start.sh",
+    "start:win": "./scripts/start.bat",
+    "dev": "./scripts/dev.sh",
+    "clean": "./scripts/clean.sh",
+    "build:backend": "dotnet build backend/API/API.csproj",
+    "build:frontend": "cd frontend && npm run build",
+    "build:all": "npm run build:backend && npm run build:frontend",
+    "test:backend": "dotnet test backend/Tests/Tests.csproj",
+    "install:frontend": "cd frontend && npm install",
+    "setup": "npm run install:frontend && npm run build:all"
+  },
+  "keywords": [
+    "code-signing",
+    "security",
+    "validation",
+    "digital-signatures",
+    "electron",
+    "dotnet",
+    "cross-platform"
+  ],
+  "author": "CodeSign Inspector Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "workspaces": [
+    "frontend"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ReyisNieves/CodeSignInspector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ReyisNieves/CodeSignInspector/issues"
+  },
+  "homepage": "https://github.com/ReyisNieves/CodeSignInspector#readme"
+}

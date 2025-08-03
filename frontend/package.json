@@ -10,7 +10,10 @@
     "build:renderer": "webpack --mode production",
     "dev:renderer": "webpack serve --mode development",
     "pack": "electron-builder",
-    "dist": "electron-builder --publish=never"
+    "dist": "electron-builder --publish=never",
+    "start:full": "../scripts/start.sh",
+    "start:dev": "../scripts/dev.sh",
+    "clean": "../scripts/clean.sh"
   },
   "keywords": [
     "code-signing",

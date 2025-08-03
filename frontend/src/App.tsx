@@ -4,10 +4,20 @@ import Dashboard from './components/Dashboard';
 import FileValidator from './components/FileValidator';
 import DirectoryScanner from './components/DirectoryScanner';
 import Settings from './components/Settings';
+import LoadingScreen from './components/LoadingScreen';
 import './App.css';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+  };
+
+  if (isLoading) {
+    return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
+  }
 
   return (
     <div className="app">

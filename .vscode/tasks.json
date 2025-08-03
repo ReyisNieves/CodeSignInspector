@@ -10,9 +10,190 @@
 				"backend/API/API.csproj"
 			],
 			"group": "build",
-			"problemMatcher": [
-				"$tsc"
-			]
+			"problemMatcher": ["$msCompile"]
+		},
+		{
+			"label": "Run Backend API",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"run",
+				"--project",
+				"backend/API/API.csproj"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "dotnet",
+				"pattern": {
+					"regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error)\\s+(\\w+):\\s+(.*)$",
+					"file": 1,
+					"line": 2,
+					"column": 3,
+					"severity": 4,
+					"code": 5,
+					"message": 6
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "^.*Building.*$",
+					"endsPattern": "^.*Application started.*$"
+				}
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": false,
+				"group": "backend"
+			}
+		},
+		{
+			"label": "Install Frontend Dependencies",
+			"type": "shell",
+			"command": "npm",
+			"args": ["install"],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
+			"group": "build",
+			"problemMatcher": [],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": false,
+				"group": "frontend"
+			}
+		},
+		{
+			"label": "Build Frontend",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "build"],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
+			"group": "build",
+			"problemMatcher": ["$tsc"],
+			"dependsOn": "Install Frontend Dependencies",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": false,
+				"group": "frontend"
+			}
+		},
+		{
+			"label": "Start Frontend Dev Server",
+			"type": "shell",
+			"command": "npm",
+			"args": ["run", "dev:renderer"],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": {
+				"owner": "webpack",
+				"pattern": {
+					"regexp": "^.*$"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "^.*webpack.*",
+					"endsPattern": "^.*compiled.*$"
+				}
+			},
+			"dependsOn": "Install Frontend Dependencies",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": false,
+				"group": "frontend"
+			}
+		},
+		{
+			"label": "Start Electron App",
+			"type": "shell",
+			"command": "npm",
+			"args": ["start"],
+			"options": {
+				"cwd": "${workspaceFolder}/frontend"
+			},
+			"group": "build",
+			"dependsOrder": "sequence",
+			"dependsOn": ["Build Frontend"],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": false,
+				"group": "electron"
+			}
+		},
+		{
+			"label": "🚀 Start Full Application",
+			"dependsOrder": "parallel",
+			"dependsOn": [
+				"Run Backend API",
+				"Start Electron App"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		},
+		{
+			"label": "🔧 Development Mode",
+			"dependsOrder": "parallel",
+			"dependsOn": [
+				"Run Backend API",
+				"Start Frontend Dev Server"
+			],
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		},
+		{
+			"label": "Clean All",
+			"type": "shell",
+			"command": "${workspaceFolder}/scripts/clean.sh",
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "new",
+				"showReuseMessage": true,
+				"clear": false
+			}
 		}
 	]
 }
